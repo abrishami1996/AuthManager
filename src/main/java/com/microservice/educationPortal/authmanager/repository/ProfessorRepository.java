@@ -1,6 +1,6 @@
 package com.microservice.educationPortal.authmanager.repository;
 
-import com.authenticationmanager.authmanager.Model.*;
+import com.microservice.educationPortal.authmanager.Model.*;
 import com.microservice.educationPortal.authmanager.Model.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 

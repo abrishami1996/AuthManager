@@ -1,8 +1,7 @@
 package com.microservice.educationPortal.authmanager.Controller;
 
-import com.authenticationmanager.authmanager.Model.*;
-import com.microservice.educationPortal.Model.*;
 import com.microservice.educationPortal.authmanager.Model.*;
+import com.microservice.educationPortal.authmanager.repository.*;
 import com.microservice.educationPortal.authmanager.SignUpRequestClasses.EmployeeRequest;
 import com.microservice.educationPortal.authmanager.SignUpRequestClasses.ProfessorRequest;
 import com.microservice.educationPortal.authmanager.SignUpRequestClasses.StudentRequest;
@@ -15,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.util.WebUtils
 import java.util.Collections;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 

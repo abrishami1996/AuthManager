@@ -1,10 +1,7 @@
 package com.microservice.educationPortal.authmanager.Controller;
-import com.authenticationmanager.authmanager.Model.*;
-import com.authenticationmanager.authmanager.repository.*;
+import com.microservice.educationPortal.authmanager.repository.*;
 import com.microservice.educationPortal.authmanager.Model.Role;
 import com.microservice.educationPortal.authmanager.Model.User;
-import com.microservice.educationPortal.authmanager.repository.*;
-import com.microservice.educationPortal.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
