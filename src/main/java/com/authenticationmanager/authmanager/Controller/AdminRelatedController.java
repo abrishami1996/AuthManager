@@ -1,15 +1,11 @@
 package com.authenticationmanager.authmanager.Controller;
 import com.authenticationmanager.authmanager.Model.*;
-import com.authenticationmanager.authmanager.repository.FacultyEmployeeRepository;
-import com.authenticationmanager.authmanager.repository.ProfessorRepository;
-import com.authenticationmanager.authmanager.repository.StudentRepository;
-import com.authenticationmanager.authmanager.repository.UserRepository;
+import com.authenticationmanager.authmanager.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -25,6 +21,9 @@ public class AdminRelatedController {
     ProfessorRepository professorRepository;
     @Autowired
     FacultyEmployeeRepository facultyEmployeeRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @RequestMapping(value = "/DeleteUser", method = RequestMethod.POST)
     public String DeleteUser(@RequestParam String username) {
@@ -51,21 +50,29 @@ public class AdminRelatedController {
         }
     }
 
-    @RequestMapping(value = "/getProfessors" , method = RequestMethod.GET)
-    public List<Professor> getProfessors()
-    {
-        return professorRepository.findAll();
-    }
 
-    @RequestMapping(value = "/getStudents" , method = RequestMethod.GET)
-    public List<Student> getStudents()
-    {
-        return studentRepository.findAll();
-    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/addRole")
+    public String AddRole(@RequestParam String username, @RequestParam String role){
 
-    @RequestMapping(value = "/getEmployees" , method = RequestMethod.GET)
-    public List<FacultyEmployee> getEmployees()
-    {
-        return facultyEmployeeRepository.findAll();
+        if (userRepository.existsByUsername(username)) {
+            User user=userRepository.findByUsername(username);
+            System.out.println(user.getUsername());
+            Role theNewRole = roleRepository.findByName(role);
+            if(theNewRole == null){
+                return "role not found";
+            }
+            System.out.println(theNewRole);
+            if (! user.getRoles().contains(theNewRole)){
+                user.getRoles().add(theNewRole);
+                userRepository.save(user);
+                return "ok";
+            }
+            else{
+                return "کاربر نقش را داشته است";
+            }
+        }
+        return "user not found";
+
     }
 }
