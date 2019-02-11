@@ -10,6 +10,7 @@ import com.microservice.educationPortal.authmanager.repository.StudentRepository
 import com.microservice.educationPortal.authmanager.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class ServiceRelatedController {
     FacultyEmployeeRepository facultyEmployeeRepository;
 
     @GetMapping("/getRole")
-    public String isStudent(HttpServletRequest request) {
+    public String GetRole(HttpServletRequest request) {
         if (request.isUserInRole("ROLE_ADMIN")) {
             return SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
         } else if (request.isUserInRole("ROLE_STUDENT")) {
@@ -46,18 +47,21 @@ public class ServiceRelatedController {
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/getProfessors" , method = RequestMethod.GET)
     public List<Professor> getProfessors()
     {
         return professorRepository.findAll();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/getStudents" , method = RequestMethod.GET)
     public List<Student> getStudents()
     {
         return studentRepository.findAll();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/getEmployees" , method = RequestMethod.GET)
     public List<FacultyEmployee> getEmployees()
     {

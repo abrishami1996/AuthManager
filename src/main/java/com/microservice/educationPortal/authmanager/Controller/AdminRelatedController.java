@@ -21,6 +21,7 @@ public class AdminRelatedController {
     @Autowired
     RoleRepository roleRepository;
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/DeleteUser", method = RequestMethod.POST)
     public String DeleteUser(@RequestParam String username) {
 
