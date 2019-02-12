@@ -12,4 +12,5 @@ public interface FacultyEmployeeRepository extends JpaRepository<FacultyEmployee
     @Transactional
     void deleteByEmployeeNumber(long employeenumber);
     void deleteById(int ID);
+    FacultyEmployee findById(int fk);
 }

@@ -1,5 +1,4 @@
 package com.microservice.educationPortal.authmanager.Controller;
-
 import com.microservice.educationPortal.authmanager.Model.FacultyEmployee;
 import com.microservice.educationPortal.authmanager.Model.Professor;
 import com.microservice.educationPortal.authmanager.Model.Student;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ServiceRelatedController {
@@ -44,6 +44,30 @@ public class ServiceRelatedController {
         }
 
         return HttpStatus.FORBIDDEN.toString();
+    }
+
+    @GetMapping("/getUserDetails")
+    public String GetUserDetails(HttpServletRequest request)
+    {
+        String username=request.getUserPrincipal().getName();
+        User user=userRepository.findByUsername(username);
+        int fk=user.getFK();
+        if(request.isUserInRole("ROLE_STUDENT"))
+        {
+            Student student = studentRepository.findById(fk);
+            return (student.getFirstName()+" "+student.getLastName());
+        }
+        else if(request.isUserInRole("ROLE_EMPLOYEE"))
+        {
+            FacultyEmployee facultyEmployee = facultyEmployeeRepository.findById(fk);
+            return (facultyEmployee.getFirstName()+" "+facultyEmployee.getLastName());
+        }
+        else if(request.isUserInRole("ROLE_PROFESSOR"))
+        {
+            Professor professor = professorRepository.findById(fk);
+            return (professor.getFirstName()+" "+professor.getLastName());
+        }
+        else return username;
     }
 
 
