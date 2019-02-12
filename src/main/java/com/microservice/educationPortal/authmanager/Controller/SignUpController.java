@@ -47,7 +47,6 @@ public class SignUpController {
     // Registering new student
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @CrossOrigin(origins = "http://localhost:63343")
     @RequestMapping(value = "/StudentSignUp", method = RequestMethod.POST)
     public String StudentSignUp(@RequestBody StudentRequest req) {
         if (userRepository.existsByUsername(Long.toString(req.getStudentNumber()))) {
@@ -73,7 +72,6 @@ public class SignUpController {
     // Registering new professor
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @CrossOrigin(origins = "http://localhost:63343")
     @RequestMapping(value = "/ProfessorSignUp", method = RequestMethod.POST)
     public String ProfessorSignUp(@RequestBody ProfessorRequest req) {
         if (userRepository.existsByUsername(Long.toString(req.getProfessorNumber()))) {
@@ -98,7 +96,6 @@ public class SignUpController {
     // Registering new employee
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @CrossOrigin(origins = "http://localhost:63343")
     @RequestMapping(value = "/EmployeeSignUp", method = RequestMethod.POST)
     public String EmployeeSignUp(@RequestBody EmployeeRequest req) {
         if (userRepository.existsByUsername(Long.toString(req.getEmployeeNumber()))) {

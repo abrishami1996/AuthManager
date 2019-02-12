@@ -22,9 +22,6 @@ public class LoginController{
     @Autowired
     JwtTokenProvider tokenProvider;
 
-
-
-    @CrossOrigin(origins = "http://localhost:63343")
     @GetMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
