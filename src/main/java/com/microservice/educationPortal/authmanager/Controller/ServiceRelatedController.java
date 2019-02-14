@@ -100,4 +100,14 @@ public class ServiceRelatedController {
     }
 
 
+    @GetMapping("/getUserFK")
+    public String getuserFK(HttpServletRequest request) {
+        String username=request.getUserPrincipal().getName();
+        User user=userRepository.findByUsername(username);
+        return user.getFK()+"";
+    }
+
+
+
+
 }
