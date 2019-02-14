@@ -28,13 +28,13 @@ public class AdminRelatedController {
         if (userRepository.existsByUsername(username)) {
             User u = userRepository.findByUsername(username);
             int key=u.getFK();
-            if(u.getTypeOfUser()=="Student"){
+            if(u.getTypeOfUser().equals("Student")){
                 studentRepository.deleteById(key);
             }
-            else if(u.getTypeOfUser()=="Professor"){
+            else if(u.getTypeOfUser().equals("Professor")){
                 professorRepository.deleteById(key);
             }
-            else if(u.getTypeOfUser()=="Employee"){
+            else if(u.getTypeOfUser().equals("Employee")){
                 facultyEmployeeRepository.deleteById(key);
             }
 

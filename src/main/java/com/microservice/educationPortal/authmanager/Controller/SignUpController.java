@@ -54,7 +54,8 @@ public class SignUpController {
         } else {
             User user = new User();
             user.setTypeOfUser("Student");
-            Student student = new Student(req.getStudentNumber(), req.getFirstName(), req.getLastName(), req.getMajor(), req.getEntranceYear(), "عادی");
+            Student student = new Student(req.getStudentNumber(), req.getFirstName(), req.getLastName(), req.getMajor(), req.getEntranceYear(), req.getEducationalState()
+            );
             Role userRole = roleRepository.findByName("ROLE_STUDENT");
             user.setRoles(Collections.singleton(userRole));
             user.setUsername(Long.toString(student.getStudentNumber()));

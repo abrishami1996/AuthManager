@@ -11,6 +11,7 @@ public interface FacultyEmployeeRepository extends JpaRepository<FacultyEmployee
     boolean existsById(int ID);
     @Transactional
     void deleteByEmployeeNumber(long employeenumber);
-    void deleteById(int ID);
+    @Transactional
+    void deleteById(int Id);
     FacultyEmployee findById(int fk);
 }

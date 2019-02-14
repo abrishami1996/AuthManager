@@ -11,6 +11,7 @@ public interface ProfessorRepository extends JpaRepository<Professor, Integer> {
     boolean existsById(int ID);
     @Transactional
     void deleteByProfessorNumber(long professornumber);
-    void deleteById(int ID);
+    @Transactional
+    void deleteById(int Id);
     Professor findById(int fk);
 }

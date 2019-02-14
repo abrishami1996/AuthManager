@@ -11,7 +11,8 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
     boolean existsById(int ID);
     @Transactional
     void deleteByStudentNumber(long StudentNumber);
-    void deleteById(int ID);
+    @Transactional
+    void deleteById(int Id);
     Student findById(int fk);
 
 }
