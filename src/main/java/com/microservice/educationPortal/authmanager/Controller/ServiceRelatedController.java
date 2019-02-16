@@ -3,6 +3,7 @@ import com.microservice.educationPortal.authmanager.Model.FacultyEmployee;
 import com.microservice.educationPortal.authmanager.Model.Professor;
 import com.microservice.educationPortal.authmanager.Model.Student;
 import com.microservice.educationPortal.authmanager.Model.User;
+import com.microservice.educationPortal.authmanager.exeption.ResourceNotFoundException;
 import com.microservice.educationPortal.authmanager.repository.FacultyEmployeeRepository;
 import com.microservice.educationPortal.authmanager.repository.ProfessorRepository;
 import com.microservice.educationPortal.authmanager.repository.StudentRepository;
@@ -107,6 +108,17 @@ public class ServiceRelatedController {
         return user.getFK()+"";
     }
 
+    @GetMapping("/getStudentNumber")
+    public String getStudentNumber(HttpServletRequest request){
+        String username=request.getUserPrincipal().getName();
+        User user=userRepository.findByUsername(username);
+        if(user.getTypeOfUser().equals("Student")){
+            Student stud = studentRepository.findById(user.getFK());
+            return stud.getStudentNumber()+"";
+        }
+        throw new ResourceNotFoundException("Student","StudentNumber",user);
+
+    }
 
 
 
